@@ -27,7 +27,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder().title("Cars API")
                         .description("Cars API with CRUD Operations")
                         .license("MIT License")
-                        .licenseUrl("example@gmail.com")
+                        .licenseUrl("kutluhan@gmail.com")
                         .version("3.0").build();
     }   
 }
