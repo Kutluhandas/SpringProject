@@ -14,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example7.demo.domainobject.CarsDO;
+import com.example7.demo.domainobject.EngineDO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -39,7 +40,7 @@ class CarsApplicationTests {
 						.andDo(print())
 						.andExpect(status().isOk())
 						.andExpect(jsonPath("$[*].id").exists())
-						.andExpect(jsonPath("$[*].modelname").exists())
+						.andExpect(jsonPath("$[*].name").exists())
 						.andExpect(jsonPath("$[*].color").exists())
 						.andExpect(jsonPath("$[*].modelyear").exists());
 								
@@ -53,7 +54,7 @@ class CarsApplicationTests {
 						.andDo(print())
 						.andExpect(status().isOk())
 						.andExpect(jsonPath("$.id").exists())
-						.andExpect(jsonPath("$.modelname").exists())
+						.andExpect(jsonPath("$.name").exists())
 						.andExpect(jsonPath("$.color").exists())
 						.andExpect(jsonPath("$.modelyear").exists());
 
@@ -62,9 +63,14 @@ class CarsApplicationTests {
 	@Test
 	public void testCreateCars() throws Exception {
 		CarsDO newCars = new CarsDO();
-		newCars.setModelname("whitetiguan");
+		newCars.setName("whitetiguanim");
 		newCars.setColor("white");
 		newCars.setModelyear("2021");
+		EngineDO newEngine = new EngineDO();
+		newEngine.setHorsepower("197");
+		newEngine.setTorque("157");
+		newEngine.setFueltype("diesel");
+		newCars.setEngine(newEngine);
 
 
 		mockMvc.perform(post("/api/v3/car")
@@ -72,19 +78,30 @@ class CarsApplicationTests {
 						.content(asJsonString(newCars)))
 						.andExpect(status().isCreated())
 						.andExpect(jsonPath("$.id").exists())
-						.andExpect(jsonPath("$.modelname").exists())
+						.andExpect(jsonPath("$.name").exists())
 						.andExpect(jsonPath("$.color").exists())
-						.andExpect(jsonPath("$.modelyear").exists());
+						.andExpect(jsonPath("$.modelyear").exists())
+						.andExpect(jsonPath("$.engine").exists())
+						.andExpect(jsonPath("$.engine.id").exists())
+						.andExpect(jsonPath("$.engine.horsepower").exists())
+						.andExpect(jsonPath("$.engine.torque").exists())
+						.andExpect(jsonPath("$.engine.fueltype").exists())
+						.andExpect(jsonPath("$.name").value("whitetiguanim"));
 
 	}
 
 	@Test
 	public void testUpdateCars() throws Exception {
 		CarsDO newCars = new CarsDO();
-		newCars.setId(4L);
-		newCars.setModelname("greytiguan");
+		newCars.setId(8L);
+		newCars.setName("greytiguan");
 		newCars.setColor("grey");
 		newCars.setModelyear("2019");
+		EngineDO newEngine = new EngineDO();
+		newEngine.setHorsepower("177");
+		newEngine.setTorque("143");
+		newEngine.setFueltype("diesel");
+		newCars.setEngine(newEngine);
 
 
 		mockMvc.perform(put("/api/v3/car")
@@ -92,18 +109,22 @@ class CarsApplicationTests {
 						.content(asJsonString(newCars)))
 						.andExpect(status().isCreated())
 						.andExpect(jsonPath("$.color").exists())
-						.andExpect(jsonPath("$.modelyear").exists());
+						.andExpect(jsonPath("$.modelyear").exists())
+						.andExpect(jsonPath("$.engine").exists())
+						.andExpect(jsonPath("$.engine.horsepower").exists())
+						.andExpect(jsonPath("$.engine.torque").exists())
+						.andExpect(jsonPath("$.engine.fueltype").exists());
 	}
 
-/*	@Test
+	@Test
 	public void testDeleteCars() throws Exception {
-		String customerId = "1";
+		String customerId = "4";
 
 		mockMvc.perform(delete("/api/v3/carsdelete/{carsId}", customerId)
 						.accept(MediaType.APPLICATION_JSON))
 						.andExpect(status().isOk());
 	}
-*/
+
 
 
 

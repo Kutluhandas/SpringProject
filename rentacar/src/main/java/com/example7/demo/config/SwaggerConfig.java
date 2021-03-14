@@ -19,7 +19,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2).groupName("rentcars-api")
                    .apiInfo(apiInfo())
                    .select()
-                   .paths(PathSelectors.ant("/api/v3/**"))
+                   .paths(PathSelectors.ant("/api/v1/**"))
                    .build();
     }
 
@@ -27,7 +27,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder().title("Cars API")
                         .description("Cars API with CRUD Operations")
                         .license("MIT License")
-                        .licenseUrl("kutluhan@gmail.com")
+                        .licenseUrl("example@gmail.com")
                         .version("3.0").build();
     }   
 }

@@ -15,7 +15,7 @@ public class CarsDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @JsonIgnore
-    private String modelname;
+    private String name;
     private String color;
     private String modelyear;
 
